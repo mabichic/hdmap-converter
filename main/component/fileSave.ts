@@ -18,8 +18,10 @@ export default function fileSave(event: IpcMainEvent, res: resInterface) {
             keys.forEach((key) => {
               if (key === "LinkID") {
                 if (data[key].length > 0) txt += data[key].join(" ") + " ";
-              } else {
-                if (data[key] !== null) {
+              } else if(key === "StopLineID"){
+                console.log(data[key]);
+              }else {
+                if (data[key] !== null || data[key].length>0) {
                   txt += data[key] + " ";
                 } else {
                   console.log(key);

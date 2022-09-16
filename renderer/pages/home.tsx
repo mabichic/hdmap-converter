@@ -51,6 +51,8 @@ function Home() {
      
       setLoading(false);
     });
+
+    console.log(roadmarkData);
   }, []);
   return (
     <>

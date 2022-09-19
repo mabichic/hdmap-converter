@@ -1,11 +1,10 @@
 import { Box, styled } from "@mui/material";
 import { ColDef } from "ag-grid-community";
-import { AgGridColumn, AgGridReact } from "ag-grid-react";
-import PropTypes from 'prop-types'
-import { DataGridHeader, Header } from "./dto";
-
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
+import { AgGridColumn, AgGridReact } from "ag-grid-react";
+import { DataGridHeader, Header } from "./dto";
+
 
 const Warp = styled(Box)({
     display: "inline-block", width: '98%', textAlign: 'left', padding: '15px'

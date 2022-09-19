@@ -1,4 +1,11 @@
 import {
+  LAYER_LANESIDE,
+  LAYER_LN_LINK,
+  LAYER_LN_NODE,
+  LAYER_ROADLIGHT,
+  LAYER_ROADMARK
+} from "../dto/ConverterData";
+import {
   a1_node,
   a2_link,
   b2_surfacelinemark,
@@ -6,16 +13,8 @@ import {
   c1_trafficlight,
   c3_vehicleprotectionsafety,
   c4_speedbump,
-  OriginalData,
+  OriginalData
 } from "../dto/OriginalData";
-import {
-  LAYER_LANESIDE,
-  LAYER_LN_LINK,
-  LAYER_LN_NODE,
-  LAYER_ROADLIGHT,
-  LAYER_ROADMARK,
-} from "../dto/ConverterData";
-import { number } from "prop-types";
 const proj4 = require("proj4");
 const epsg5186 =
   "+proj=tmerc +lat_0=38 +lon_0=127 +k=1 +x_0=200000 +y_0=600000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs";
@@ -44,12 +43,13 @@ export default function Converter(obj: OriginalData) {
     });
     link.NumPoint = ob.geometry.coordinates.length;
     link.PointXY = pointXY.trim();
-    links.set(ob.properties["ID"], link);
+    links.set(ob.properties["ID"].trim(), link);
   });
   obj["a1_node"].forEach((ob: a1_node, index) => {
     let node = new LAYER_LN_NODE(nodes.size + 1);
     node.PointXY = coorTrans(ob.geometry.coordinates).join(" ").trim();
-    nodes.set(ob.properties["ID"], node);
+    nodes.set(ob.properties["ID"].trim(), node);
+
   });
   obj["b2_surfacelinemark"].forEach((ob: b2_surfacelinemark, index) => {
     if (ob.properties["Kind"] === "530") {
@@ -88,7 +88,7 @@ export default function Converter(obj: OriginalData) {
         " " +
         point_5
       ).trim();
-      roadmarks.set(ob.properties["ID"], roadmark);
+      roadmarks.set(ob.properties["ID"].trim(), roadmark);
     } else {
       let laneside = new LAYER_LANESIDE(lanesides.size + 1);
       laneside.Type = 1;
@@ -110,7 +110,7 @@ export default function Converter(obj: OriginalData) {
         pointXY += " ";
       });
       laneside.PointXY = pointXY.trim();
-      lanesides.set(ob.properties["ID"], laneside);
+      lanesides.set(ob.properties["ID"].trim(), laneside);
     }
   });
   obj["b3_surfacemark"].forEach((ob: b3_surfacemark, index) => {
@@ -136,7 +136,7 @@ export default function Converter(obj: OriginalData) {
     });
     roadmark.NumPoint = ob.geometry.coordinates[0].length;
     roadmark.PointXY = pointXY.trim();
-    roadmarks.set(ob.properties["ID"], roadmark);
+    roadmarks.set(ob.properties["ID"].trim(), roadmark);
   });
 
   obj["c1_trafficlight"].forEach((ob: c1_trafficlight, index) => {
@@ -146,7 +146,7 @@ export default function Converter(obj: OriginalData) {
       coorTrans(ob.geometry.coordinates).join(" ").trim() +
       " " +
       coorTrans(ob.geometry.coordinates).join(" ").trim();
-    roadlights.set(ob.properties["ID"], roadlight);
+    roadlights.set(ob.properties["ID"].trim(), roadlight);
   });
   obj["c3_vehicleprotectionsafety"].forEach(
     (ob: c3_vehicleprotectionsafety, index) => {
@@ -159,7 +159,7 @@ export default function Converter(obj: OriginalData) {
       });
       laneside.NumPoint = ob.geometry.coordinates.length;
       laneside.PointXY = pointXY;
-      lanesides.set(ob.properties["ID"], laneside);
+      lanesides.set(ob.properties["ID"].trim(), laneside);
     }
   );
   obj["c4_speedbump"].forEach((ob: c4_speedbump, index) => {
@@ -173,7 +173,7 @@ export default function Converter(obj: OriginalData) {
     });
     roadmark.NumPoint = ob.geometry.coordinates[0].length;
     roadmark.PointXY = pointXY.trim();
-    roadmarks.set(ob.properties["ID"], roadmark);
+    roadmarks.set(ob.properties["ID"].trim(), roadmark);
   });
 
   // ID부여를 위해 forEach 한번 더 돌림
@@ -184,10 +184,10 @@ export default function Converter(obj: OriginalData) {
       nodes.get(ob.properties.FromNodeID).LinkID.push(link.ID);
       nodes.get(ob.properties.FromNodeID).NumConLink++;
     }
-    if (nodes.get(ob.properties.ToNodeId)) {
-      link.ENodeID = nodes.get(ob.properties.ToNodeId).ID;
-      nodes.get(ob.properties.ToNodeId).LinkID.push(link.ID);
-      nodes.get(ob.properties.ToNodeId).NumConLink++;
+    if (nodes.get(ob.properties.ToNodeID)) {
+      link.ENodeID = nodes.get(ob.properties.ToNodeID).ID;
+      nodes.get(ob.properties.ToNodeID).LinkID.push(link.ID);
+      nodes.get(ob.properties.ToNodeID).NumConLink++;
     }
 
     link.LLinkID =

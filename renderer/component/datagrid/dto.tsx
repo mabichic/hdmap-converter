@@ -76,6 +76,7 @@ export const LAYER_ROADLIGHT : DataGridHeader = {
   {key: 'Type', name: 'Type' , editor: "agSelectCellEditor"},
   {key: 'SubType', name: 'SubType' , editor: "agSelectCellEditor"},
   {key: 'Div', name: 'Div' , editor: "agSelectCellEditor"},
+  {key: 'Div', name: 'U_Turn' , editor: "agSelectCellEditor"},
   {key: 'NumStopLine', name: 'NumStopLine' , editor: "agTextCellEditor" },
   {key: 'StopLineID', name: 'StopLineID' , editor: "agTextCellEditor" },
   {key: 'NumPoint', name: 'NumPoint' , editor: "agTextCellEditor" },

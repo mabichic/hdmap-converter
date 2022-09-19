@@ -18,13 +18,11 @@ export default function fileSave(event: IpcMainEvent, res: resInterface) {
             keys.forEach((key) => {
               if (key === "LinkID") {
                 if (data[key].length > 0) txt += data[key].join(" ") + " ";
-              } else if(key === "StopLineID"){
-                console.log(data[key]);
-              }else {
-                if (data[key] !== null || data[key].length>0) {
+              } else if (key === "StopLineID") {
+              } else {
+                if (data[key] !== null || data[key].length > 0) {
                   txt += data[key] + " ";
                 } else {
-                  console.log(key);
                 }
               }
             });
@@ -36,7 +34,8 @@ export default function fileSave(event: IpcMainEvent, res: resInterface) {
         };
         const saveTxt = (txts: string, dir: number, file: string) => {
           fs.mkdirSync(results.filePaths[0] + "/" + dir, { recursive: true });
-          const filePath = results.filePaths[0] + "/" + dir + "/" + file + ".txt";
+          const filePath =
+            results.filePaths[0] + "/" + dir + "/" + file + ".txt";
           fs.writeFileSync(filePath, txts, "utf8");
         };
         let linkResult = txtConverterFn(res.LAYER_LN_LINK);
@@ -45,11 +44,16 @@ export default function fileSave(event: IpcMainEvent, res: resInterface) {
         let lanesideResult = txtConverterFn(res.LAYER_LANESIDE);
         let roadmarkResult = txtConverterFn(res.LAYER_ROADMARK);
         const today = new Date().getTime();
-        if (linkResult.count > 0) saveTxt(linkResult.datas, today, "etridb_plus_LAYER_LN_LINK");
-        if (nodeResult.count > 0) saveTxt(nodeResult.datas, today, "etridb_plus_LAYER_LN_NODE");
-        if (roadlightResult.count > 0) saveTxt(roadlightResult.datas, today, "etridb_plus_LAYER_ROADLIGHT");
-        if (lanesideResult.count > 0) saveTxt(lanesideResult.datas, today, "etridb_plus_LAYER_LANESIDE");
-        if (roadmarkResult.count > 0) saveTxt(roadmarkResult.datas, today, "etridb_plus_LAYER_ROADMARK");
+        if (linkResult.count > 0)
+          saveTxt(linkResult.datas, today, "etridb_plus_LAYER_LN_LINK");
+        if (nodeResult.count > 0)
+          saveTxt(nodeResult.datas, today, "etridb_plus_LAYER_LN_NODE");
+        if (roadlightResult.count > 0)
+          saveTxt(roadlightResult.datas, today, "etridb_plus_LAYER_ROADLIGHT");
+        if (lanesideResult.count > 0)
+          saveTxt(lanesideResult.datas, today, "etridb_plus_LAYER_LANESIDE");
+        if (roadmarkResult.count > 0)
+          saveTxt(roadmarkResult.datas, today, "etridb_plus_LAYER_ROADMARK");
 
         event.sender.send("fileSaveReciver", { state: "ok" });
       } else {

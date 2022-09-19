@@ -97,25 +97,27 @@ export class LAYER_ROADMARK {
   }
 }
 
-export class LAYER_ROADLIGHT { 
+export class LAYER_ROADLIGHT {
   ID: number;
   LaneID: number;
   Type: number;
   SubType: number;
   Div: number;
+  U_Turn: number;
   NumStopLine: number;
   StopLineID: Array<number>;
   NumPoint: number;
   PointXY: string;
-  constructor(id:number){ 
-    this.ID = id; 
-    this.LaneID =0 ;
-    this.Type = 0 ; 
-    this.SubType = 0 ;
-     this.Div = 0;
-     this.NumStopLine = 0; 
-     this.StopLineID = []; 
-     this.NumPoint = 0;
-      this.PointXY = ""; 
+  constructor(id: number) {
+    this.ID = id;
+    this.LaneID = 0;
+    this.Type = 0;
+    this.SubType = 0;
+    this.Div = 0;
+    this.U_Turn = 0;
+    this.NumStopLine = 0;
+    this.StopLineID = [];
+    this.NumPoint = 0;
+    this.PointXY = "";
   }
 }

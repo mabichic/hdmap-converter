@@ -35,7 +35,6 @@ function Home() {
   }
   useEffect(() => {
     ipcRenderer.on("datrReceiver", (event, res) => {
-      console.log(res);
       if (res.state === "ok") {
         res.dir && setFilePath(res.dir);
         res.data.link && setLinkData(res.data?.link);
@@ -47,12 +46,10 @@ function Home() {
       setLoading(false);
     });
     ipcRenderer.on("fileSaveReciver", (event, res) => {
-      console.log(res);
      
       setLoading(false);
     });
 
-    console.log(roadmarkData);
   }, []);
   return (
     <>

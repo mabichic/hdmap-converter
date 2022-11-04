@@ -196,7 +196,7 @@ export default function Converter(obj: OriginalData) {
           ? links.get(ob.properties.L_LinkID).ID
           : 0
         : 0;
-    link.RLID =
+    link.RLinkID =
       ob.properties.R_LinkID !== null
         ? links.get(ob.properties.R_LinkID)
           ? links.get(ob.properties.R_LinkID).ID
@@ -210,7 +210,7 @@ export default function Converter(obj: OriginalData) {
     let roadlight = roadlights.get(ob.properties.ID);
     if (links.get(ob.properties.LinkID)) {
       roadlight.LaneID = links.get(ob.properties.LinkID).ID;
-      links.get(ob.properties.LinkID).RLID = roadlight.ID;
+      links.get(ob.properties.LinkID).RLinkID = roadlight.ID;
     }
   });
   let result = {

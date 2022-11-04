@@ -23,7 +23,7 @@ export interface a2_link {
     R_LinkID: string;
     L_LinkID: string;
     FromNodeID: string;
-    ToNodeId: string;
+    ToNodeID: string;
     SectionID: string;
     Length: string;
     ITSLinkID: string;
